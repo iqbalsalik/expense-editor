@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar bg-dark ">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1" style="color: rgb(113, 0, 219);">Expense Tracker</span>
+        </div>
+    </nav>
+    <div class="container" style="display: flex; justify-content: center; align-items: center;">
+        <div class="container m-5 bg-dark-subtle" style="margin: auto; width: 40%;">
+            <form onsubmit="formSubmit(e)">
+                <div class="form-group">
+                    <label for="expenseAmount">Amount:</label>
+                    <input type="number" class="form-control" id="expenseAmount" aria-describedby="expenseAmount"
+                        placeholder="Enter Expense" name="Amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="expenseDescription">Description</label>
+                    <input type="text" class="form-control" id="expenseDescription" placeholder="Expense Details"
+                        name="description" required>
+                </div>
+                <div class="form-group">
+                    <label for="expenseFields">Category:</label>
+                    <select class="form-control" id="expenseFields" name="category" required>
+                        <option selected>Movie</option>
+                        <option>Fuel</option>
+                        <option>Electricity Bills</option>
+                        <option>Food</option>
+                        <option>Tour</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary m-3" id="addBtn" style="align-items: center">Add Expense</button>
+                <button class="btn btn-primary m-3" id="updateBtn" style="align-items: center; display: none">Update
+                    Expense</button>
+            </form>
+        </div>
+    </div>
+    <ul class="list-group" id="list-group"></ul>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
