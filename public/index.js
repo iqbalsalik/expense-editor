@@ -1,8 +1,10 @@
+
 const expenseAmount = document.getElementById("expenseAmount");
 const expenseDescription = document.getElementById("expenseDescription");
 const category = document.getElementById("expenseFields");
 const addExpense = document.getElementById("addBtn");
 const ul = document.getElementById("list-group");
+const expenseId = document.getElementById("expenseId");
 const updateBtn = document.getElementById("updateBtn");
 
 addExpense.addEventListener("click", postExpense)
@@ -48,7 +50,7 @@ window.addEventListener("DOMContentLoaded",async () => {
 function showOnScreen(obj,objId){
     const childNode = ` 
             <li class="list-group-item" id = ${objId}>
-                ${obj.Amount} ${obj.Description} ${obj.Category}
+                ${obj.Amount} ${obj.Description} ${obj.Category} 
                 <button class="btn btn-primary  btn-sm me-3" type="button" id = "delete" onclick="deleteFromBack('${objId}')">Delete</button>
                 <button class="btn btn-primary  btn-sm me-3" type="button" id = "edit" onclick="updateNote('${objId}','${obj.Amount}','${obj.Description}','${obj.Category}')">Edit</button>
             </li>`
@@ -74,13 +76,38 @@ function deleteNote(objId) {
 
 //UPDATE NOTE
 async function updateNote(objId,objAmount,objDesc,objCat){
-   deleteFromBack(objId)
+   deleteNote(objId)
    expenseAmount.value = objAmount;
    expenseDescription.value = objDesc;
    category.value = objCat;
+   expenseId.value = objId;
    addExpense.style.display = "none";
    updateBtn.style.display  = "block"
 }
 
 //UPDATE BUTTON FUNCTIONALITY
-updateBtn.addEventListener("click", postExpense)
+updateBtn.addEventListener("click", updateExpense)
+
+async function updateExpense(e){
+        e.preventDefault()
+        try{
+            const Amount = expenseAmount.value;
+            const Description = expenseDescription.value;
+            const Category = category.value;
+            const objId = expenseId.value;
+    
+            const updateObj = {
+                Amount,
+                Description,
+                Category
+            }
+            await axios.patch(`http://localhost:3000/expenseTable/updatetable/${objId}`,updateObj);
+            showOnScreen(updateObj,objId);
+            expenseAmount.value = "";
+            expenseDescription.value = "";
+            category.value = "";
+        } catch(err){
+            document.write(`<h1 style="color: red; margin:10vh 32vw;">${err.response.data.message}</h1>`)  
+        }   
+}
+

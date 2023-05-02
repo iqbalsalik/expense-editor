@@ -8,7 +8,11 @@ router.post("/add-expense",expenseController.postAddExpense);
 
 router.get("/expensetable", expenseController.getExpenseData);
 
-router.delete("/expensetable/:expenseId",expenseController.deleteData)
+router.patch("/expenseTable/updatetable/:objId",expenseController.updateTable)
+
+router.delete("/expensetable/:expenseId",expenseController.deleteData);
+
+
 
  router.get("/",expenseController.getExpenseForm);
 

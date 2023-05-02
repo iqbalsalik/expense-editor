@@ -50,3 +50,26 @@ exports.deleteData = async (req, res) => {
         res.status(500).json({message:"Something went wrong!"})
     } 
 }
+
+exports.updateTable =  async (req,res)=>{
+    if(!req.body.Amount || !req.body.Description || !req.body.Category){
+        return res.status(400).json({
+            message:"All The feilds are mandatory!!"
+        }) 
+    }
+    try{
+        const objId = req.params.objId;
+        ExpenseList.update({
+            Amount:req.body.Amount,
+            Description:req.body.Description,
+            Category:req.body.Category
+        },{
+            where:{
+                id:objId
+            }
+        })
+        res.status(200).json("Successfully Updated")
+    } catch (err){
+        res.status(500).json({message:"Something went wrong!"})
+    }  
+}
